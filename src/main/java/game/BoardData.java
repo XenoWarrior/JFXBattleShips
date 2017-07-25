@@ -29,6 +29,8 @@ public class BoardData {
 		}
 		catch(Exception e) {
 			System.out.println("No more ships to place for this board.");
+			
+			this.currentShipType = null;
 			this.boardReady = true;
 		}
 	}

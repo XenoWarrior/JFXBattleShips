@@ -16,23 +16,11 @@ public class Board {
 	private VBox boardColumns = new VBox();
 	private int boardSize = 10;
 	private BoardData boardData = new BoardData();
-
+	Label boardLabel;
+	
 	public Board(BoardType bt) {
 
-		Label boardLabel = new Label("Unset");
-
-		switch (bt) {
-		case BOARD_PLAYER_1:
-			boardLabel.setText("Player 1");
-			boardLabel.setAlignment(Pos.BOTTOM_CENTER);
-			break;
-		case BOARD_PLAYER_2:
-			boardLabel.setText("Player 2");
-			break;
-		case BOARD_PLAYER_AI:
-			boardLabel.setText("AI Player");
-			break;
-		}
+		boardLabel = new Label("Place ship: " + boardData.getCurrentShip() + ", size: 1 x " + this.getShipSize());
 
 		boardColumns.getChildren().add(boardLabel);
 
@@ -173,5 +161,12 @@ public class Board {
 				break;
 		}
 		boardData.setNextShip();
+		
+		if(boardData.getCurrentShip() != null) {
+			boardLabel.setText("Place ship: " + boardData.getCurrentShip() + ", size: 1 x " + this.getShipSize());
+		}
+		else {
+			boardLabel.setText("Ready!");
+		}
 	}
 }
