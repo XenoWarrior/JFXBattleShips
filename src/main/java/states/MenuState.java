@@ -1,6 +1,8 @@
-package newbattle;
+package states;
 
-import engine.GUIControls;
+import engine.gui.GUIControls;
+import engine.state.State;
+import game.App;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,7 +55,7 @@ public class MenuState extends State {
 		buttonContainer.setAlignment(Pos.CENTER);
 		
 		HBox labelContainer = new HBox();
-		labelContainer.getChildren().addAll(GUIControls.createLabel("BattleShips", new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
 		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);

@@ -1,20 +1,30 @@
-package newbattle;
+package game;
 
 import java.util.HashMap;
 
+import engine.handlers.GameLoop;
+import engine.state.State;
+import game.board.Board;
 import javafx.application.Application;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import states.GameState;
+import states.InitState;
+import states.MenuState;
+import states.PlayState;
+import states.SetupState;
 
 public class App extends Application {
 
 	private static HashMap<String, State> stateList = new HashMap<String, State>();
 	private static HashMap<Integer, Board> boardList = new HashMap<Integer, Board>();
+
+	private static Label runTime = new Label();
 	
 	private static GameState gameState = GameState.STATE_INIT;
+	
 	private static long startTime = System.nanoTime();
-	private static Label runTime = new Label();
-
+	private static long runTimeVal = 0;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -38,10 +48,10 @@ public class App extends Application {
 		new GameLoop() { 
 			public void handle(long l) {
 				// Main game logic
-				App.runTime.setText("Time: " + ((l-startTime) / 1000000000));
+				App.runTimeVal = ((l-startTime) / 1000000000);
+				App.runTime.setText("Time: " + App.runTimeVal);
 				
-				if(App.getState() == GameState.STATE_INIT) {
-					
+				if(App.getState() == GameState.STATE_INIT && App.runTimeVal > 2) {
 					try {
 						App.setState(GameState.STATE_MENU);
 					} catch (Exception e) {

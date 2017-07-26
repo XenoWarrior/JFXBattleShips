@@ -1,6 +1,7 @@
-package newbattle;
+package states;
 
-import engine.GUIControls;
+import engine.gui.GUIControls;
+import engine.state.State;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ public class InitState extends State {
 
 	public InitState() {
 		HBox labelContainer = new HBox();
-		labelContainer.getChildren().addAll(GUIControls.createLabel("Loading..", new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
 		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 25, 25));
 		labelContainer.setAlignment(Pos.CENTER);

@@ -1,4 +1,4 @@
-package engine;
+package engine.gui;
 
 import javafx.scene.control.*;
 import javafx.scene.text.*;

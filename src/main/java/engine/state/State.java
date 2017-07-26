@@ -1,6 +1,6 @@
-package newbattle;
+package engine.state;
 
-import engine.GUIControls;
+import engine.gui.GUIControls;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public abstract class State {
 
-	protected Stage stateStage= new Stage();
+	protected Stage stateStage = new Stage();
 
 	public State() {
 		HBox labelContainer = new HBox();

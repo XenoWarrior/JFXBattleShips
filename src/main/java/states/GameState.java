@@ -1,4 +1,4 @@
-package newbattle;
+package states;
 
 public enum GameState {
 	STATE_MENU,
