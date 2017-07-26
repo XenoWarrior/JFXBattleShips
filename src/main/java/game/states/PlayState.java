@@ -16,6 +16,8 @@ public class PlayState extends State {
 	public PlayState() {
 
 		Button backToMenuButton = GUIControls.createButton("Back to Menu", 128, 32);
+		Button endGameButton = GUIControls.createButton("End Game", 128, 32);
+		
 		backToMenuButton.setOnMouseClicked((e) -> {
 			try {
 				App.setState(GameState.STATE_MENU);				 
@@ -24,8 +26,6 @@ public class PlayState extends State {
 				System.out.println(ex.getMessage());
 			}
 		});
-		
-		Button endGameButton = GUIControls.createButton("End Game", 128, 32);
 		endGameButton.setOnMouseClicked((e) -> {
 			try {
 				App.setState(GameState.STATE_END);				 
@@ -35,10 +35,10 @@ public class PlayState extends State {
 			}
 		});
 
-		HBox labelContainer = new HBox();
+		VBox labelContainer = new VBox();
+		labelContainer.setSpacing(0);
 		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("Battleships", new Font("Arial", 30)));
-		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 

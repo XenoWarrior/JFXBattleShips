@@ -47,20 +47,20 @@ public class MenuState extends State {
 		exitButton.setOnMouseClicked((e) -> {
 			Platform.exit();
 		});
-		
-		HBox buttonContainer = new HBox();
-		buttonContainer.getChildren().addAll(startButton, playButton, initButton, exitButton);
-		buttonContainer.setSpacing(25);
-		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
-		buttonContainer.setAlignment(Pos.CENTER);
 
-		HBox labelContainer = new HBox();
+		VBox labelContainer = new VBox();
+		labelContainer.setSpacing(0);
 		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("Main Menu", new Font("Arial", 30)));
-		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 		
+		HBox buttonContainer = new HBox();
+		buttonContainer.setSpacing(25);
+		buttonContainer.getChildren().addAll(startButton, playButton, initButton, exitButton);
+		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
+		buttonContainer.setAlignment(Pos.CENTER);
+
 		VBox rootContainer = new VBox();
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);

@@ -16,6 +16,8 @@ public class SetupState extends State {
 	public SetupState() {
 
 		Button backToMenuButton = GUIControls.createButton("Back to Menu", 128, 32);
+		Button startButton = GUIControls.createButton("Start Game", 128, 32);
+		
 		backToMenuButton.setOnMouseClicked((e) -> {
 			try {
 				App.setState(GameState.STATE_MENU);				 
@@ -24,8 +26,6 @@ public class SetupState extends State {
 				System.out.println(ex.getMessage());
 			}
 		});
-
-		Button startButton = GUIControls.createButton("Start Game", 128, 32);
 		startButton.setOnMouseClicked((e) -> {
 			try {
 				App.setState(GameState.STATE_PLAY);				 
@@ -35,10 +35,10 @@ public class SetupState extends State {
 			}
 		});
 
-		HBox labelContainer = new HBox();
+		VBox labelContainer = new VBox();
+		labelContainer.setSpacing(0);
 		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("Configure Board", new Font("Arial", 30)));
-		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 
