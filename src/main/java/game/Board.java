@@ -17,6 +17,7 @@ public class Board {
 	private int boardSize = 10;
 	private BoardData boardData = new BoardData();
 	Label boardLabel;
+	Label playerLabel;
 	
 	public Board(BoardType bt) {
 
@@ -50,6 +51,14 @@ public class Board {
 
 			boardColumns.getChildren().add(boardRow);
 		}
+	}
+
+	public boolean isReady() { 
+		return boardData.isReady();
+	}
+	
+	public void isReady(boolean b) { 
+		boardData.isReady(b);
 	}
 
 	public int getShipSize() {
@@ -167,6 +176,7 @@ public class Board {
 		}
 		else {
 			boardLabel.setText("Ready!");
+			boardData.isReady(true);
 		}
 	}
 }

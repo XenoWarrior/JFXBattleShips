@@ -17,9 +17,13 @@ public class BoardData {
 	public void togglePlayerTurn() {
 		this.currentPlayerTurn = !this.currentPlayerTurn;
 	}
-	
+
 	public boolean isReady() { 
 		return this.boardReady;
+	}
+	
+	public void isReady(boolean b) { 
+		this.boardReady = b;
 	}
 	
 	public void setNextShip() { 

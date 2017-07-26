@@ -1,14 +1,5 @@
 package game;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -65,6 +56,10 @@ public class Cell extends Rectangle {
 			 return true;
 		 }
 		 return false;
+	}
+	
+	public void hideShip() {
+		this.setFill(Color.WHITE);
 	}
 	
 	public void onEnter() {

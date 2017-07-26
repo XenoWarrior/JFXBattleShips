@@ -1,34 +1,18 @@
 package com.projectge.battleship;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import com.sun.prism.paint.Color;
-
 import game.Board;
 import game.BoardType;
-import game.Cell;
-import game.BoardData;
-import game.ShipDirection;
+import game.GameLoop;
 import javafx.application.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.*;
-import javafx.scene.shape.Rectangle;
 
 @SuppressWarnings("restriction")
 public class App extends Application {
-
 	
 	Object o = new Object();
-	
-
 	
 	public static void main(String[] args) {
 		
@@ -38,25 +22,43 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		VBox rootContainer1 = new VBox();
-		rootContainer1.setPadding(new Insets(25, 25, 25, 25));
-		rootContainer1.setSpacing(10);
-		rootContainer1.getChildren().add(new Board(BoardType.BOARD_PLAYER_1).getColumns());
-        Scene scene1 = new Scene(rootContainer1);
+		Board b1 = new Board(BoardType.BOARD_PLAYER_1);
+		VBox rootContainer = new VBox();
+		rootContainer.setPadding(new Insets(25, 25, 25, 25));
+		rootContainer.setSpacing(10);
+		rootContainer.getChildren().add(b1.getColumns()); //createBoards()); //new Board(BoardType.BOARD_PLAYER_1).getColumns());
+        Scene scene = new Scene(rootContainer);
         primaryStage.setTitle("Battleships");
-        primaryStage.setScene(scene1);
+        primaryStage.setScene(scene);
         primaryStage.show();
 
+		Board b2 = new Board(BoardType.BOARD_PLAYER_2);
         Stage primaryStage1 = new Stage();
 		VBox rootContainer2 = new VBox();
 		rootContainer2.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer2.setSpacing(10);
-		rootContainer2.getChildren().add(new Board(BoardType.BOARD_PLAYER_2).getColumns());
+		rootContainer2.getChildren().add(b2.getColumns()); //createBoards()); //new Board(BoardType.BOARD_PLAYER_1).getColumns());
         Scene scene2 = new Scene(rootContainer2);
         primaryStage1.setTitle("Battleships");
         primaryStage1.setScene(scene2);
-        primaryStage1.show();
+        //primaryStage1.show();
         
+        new GameLoop()
+        {
+            public void handle(long currentNanoTime)
+            {
+            	if(b1.isReady()) {
+            		System.out.println("Player 1 is ready.");
+            		b1.isReady(false);
+                    primaryStage1.show();
+                    primaryStage.hide();
+            	}
+            	else if(b2.isReady()) {
+            		System.out.println("Ready!");
+                    primaryStage1.hide();
+            	}
+            }
+        }.start();
 	}
 	
 	public Parent createBoards() {
