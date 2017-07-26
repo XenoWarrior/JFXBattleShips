@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 public class App extends Application {
 
 	private static HashMap<String, State> stateList = new HashMap<String, State>();
-	private static HashMap<Integer, Board> boardList = new HashMap<Integer, Board>();
 	private static Label runTime = new Label();
 	private static Stage mainStage = new Stage();;
 	private static GameState gameState = GameState.STATE_INIT;
@@ -100,6 +99,37 @@ public class App extends Application {
 		}
 	}
 
+	public static void reloadCurrentState() throws Exception {
+		
+		State newState;
+		switch(App.getState()) {
+		case STATE_INIT:
+			newState = new InitState(App.getState());
+			break;
+		case STATE_MENU:
+			newState = new MenuState(App.getState());
+			break;
+		case STATE_SETUP:
+			newState = new SetupState(App.getState());
+			break;
+		case STATE_PLAY:
+			newState = new PlayState(App.getState());
+			break;
+		case STATE_END:
+			newState = new EndState(App.getState());
+			break;
+		default: 
+			newState = null;
+		}
+
+		if(newState != null) {
+			App.stateList.put(App.getState().toString(), newState);
+		}
+		else {
+			throw new Exception("Unable to reload state, unknown current state!");
+		}
+	}
+	
 	/**
 	 * Used to debug states, prints a list of all available states
 	 */
@@ -109,11 +139,4 @@ public class App extends Application {
 		}
 	}
 	
-	/**
-	 * Gets a list of all the game boards available
-	 * @return HashMap with [Integer => Board] as [Key => Value] Pair 
-	 */
-	public HashMap<Integer, Board> getBoards() {
-		return boardList;
-	}
 }

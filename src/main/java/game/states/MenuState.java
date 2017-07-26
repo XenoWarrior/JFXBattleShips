@@ -3,6 +3,7 @@ package game.states;
 import engine.gui.GUIControls;
 import engine.state.State;
 import game.App;
+import game.DataStorage;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,10 +18,10 @@ public class MenuState extends State {
 	public MenuState(GameState s) {
 		super(s);
 		
-		Button startButton = GUIControls.createButton("New Game", 64, 32);
-		Button playButton = GUIControls.createButton("Test Play", 64, 32);
-		Button initButton = GUIControls.createButton("Test Init", 64, 32);
-		Button exitButton = GUIControls.createButton("Exit Game", 64, 32);
+		Button startButton = GUIControls.createButton("New Game", 128, 32);
+		//Button playButton = GUIControls.createButton("Test Play", 128, 32);
+		//Button initButton = GUIControls.createButton("Test Init", 128, 32);
+		Button exitButton = GUIControls.createButton("Exit Game", 128, 32);
 		
 		startButton.setOnMouseClicked((e) -> {
 			try {
@@ -30,39 +31,39 @@ public class MenuState extends State {
 				System.out.println(ex.getMessage());
 			}
 		});
-		playButton.setOnMouseClicked((e) -> {
-			try {
-				App.setState(GameState.STATE_PLAY);				 
-			}
-			catch(Exception ex) {
-				System.out.println(ex.getMessage());
-			}
-		});
-		initButton.setOnMouseClicked((e) -> {
-			try {
-				App.startTime = System.nanoTime();
-				App.runTimeVal = 0;
-				
-				App.setState(GameState.STATE_INIT);
-			}
-			catch(Exception ex) {
-				System.out.println(ex.getMessage());
-			}
-		});
+//		playButton.setOnMouseClicked((e) -> {
+//			try {
+//				App.setState(GameState.STATE_PLAY);				 
+//			}
+//			catch(Exception ex) {
+//				System.out.println(ex.getMessage());
+//			}
+//		});
+//		initButton.setOnMouseClicked((e) -> {
+//			try {
+//				App.startTime = System.nanoTime();
+//				App.runTimeVal = 0;
+//				
+//				App.setState(GameState.STATE_INIT);
+//			}
+//			catch(Exception ex) {
+//				System.out.println(ex.getMessage());
+//			}
+//		});
 		exitButton.setOnMouseClicked((e) -> {
 			Platform.exit();
 		});
 
 		VBox labelContainer = new VBox();
 		labelContainer.setSpacing(0);
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+//		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("Main Menu", new Font("Arial", 30)));
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 		
 		HBox buttonContainer = new HBox();
 		buttonContainer.setSpacing(25);
-		buttonContainer.getChildren().addAll(startButton, playButton, initButton, exitButton);
+		buttonContainer.getChildren().addAll(startButton, exitButton);
 		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
 		buttonContainer.setAlignment(Pos.CENTER);
 
@@ -77,4 +78,9 @@ public class MenuState extends State {
 		super.getStage().setScene(super.stateScene);
 	}
 
+	@Override
+	public void update() {
+		DataStorage.reset();
+	}
+	
 }

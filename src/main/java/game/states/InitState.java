@@ -6,7 +6,6 @@ import game.App;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -17,7 +16,7 @@ public class InitState extends State {
 		
 		VBox labelContainer = new VBox();
 		labelContainer.setSpacing(0);
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+//		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("Splash Screen", new Font("Arial", 30)));
 		labelContainer.setPadding(new Insets(25, 25, 25, 25));
 		labelContainer.setAlignment(Pos.CENTER);
@@ -35,12 +34,10 @@ public class InitState extends State {
 	
 	@Override 
 	public void update() {
-		if(App.runTimeVal > 1) {
-			try {
-				App.setState(GameState.STATE_MENU);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
+		try {
+			App.setState(GameState.STATE_MENU);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }

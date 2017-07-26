@@ -38,8 +38,9 @@ public class PlayState extends State {
 
 		VBox labelContainer = new VBox();
 		labelContainer.setSpacing(0);
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+//		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("Battleships", new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel("Turn: Player X", new Font("Arial", 16)));
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 

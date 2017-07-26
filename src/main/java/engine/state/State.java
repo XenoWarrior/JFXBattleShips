@@ -77,6 +77,6 @@ public abstract class State {
 	 * Stub update method
 	 */
 	public void update() { 
-		System.out.println("[" +this.getClass().getName() + "]: update()");
+		//System.out.println("[" +this.getClass().getName() + "]: update()");
 	}
 }
