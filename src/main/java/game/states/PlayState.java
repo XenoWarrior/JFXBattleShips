@@ -53,9 +53,10 @@ public class PlayState extends State {
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);
 		rootContainer.getChildren().addAll(labelContainer, buttonContainer);
+		rootContainer.setAlignment(Pos.CENTER);
 		
-		Scene scene = new Scene(rootContainer);
+		super.stateScene = new Scene(rootContainer);
 		this.getStage().setTitle("State: Play Battleships");
-		this.getStage().setScene(scene);
+		this.getStage().setScene(super.stateScene);
 	}	
 }

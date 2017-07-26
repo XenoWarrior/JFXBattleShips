@@ -26,9 +26,11 @@ public class App extends Application {
 	private static HashMap<String, State> stateList = new HashMap<String, State>();
 	private static HashMap<Integer, Board> boardList = new HashMap<Integer, Board>();
 	private static Label runTime = new Label();
+	private static Stage mainStage = new Stage();;
 	private static GameState gameState = GameState.STATE_INIT;
-	private static long startTime = System.nanoTime();
-	private static long runTimeVal = 0;
+	
+	public static long startTime = System.nanoTime();
+	public static long runTimeVal = 0;
 
 	/**
 	 * Application entry
@@ -41,26 +43,29 @@ public class App extends Application {
 	 * Overrides the JavaFX start method to control application from this class
 	 */
 	@Override
-	public void start(Stage s) throws Exception {
+	public void start(Stage mainStage) throws Exception {
 		State stateInit = new InitState(GameState.STATE_INIT);
 		State stateMenu = new MenuState(GameState.STATE_MENU);
 		State stateSetup = new SetupState(GameState.STATE_SETUP);
 		State statePlay = new PlayState(GameState.STATE_PLAY);
 		State stateEnd = new EndState(GameState.STATE_END);
-		stateInit.getStage().show();
 		
-		stateList.put(stateInit.getType().toString(), stateInit);
-		stateList.put(stateMenu.getType().toString(), stateMenu);
-		stateList.put(stateSetup.getType().toString(), stateSetup);
-		stateList.put(statePlay.getType().toString(), statePlay);
-		stateList.put(stateEnd.getType().toString(), stateEnd);
-
+		App.mainStage.setScene(stateInit.getScene());
+		App.mainStage.setWidth(1024);
+		App.mainStage.setHeight(768);
+		App.mainStage.show();
+		
+		App.stateList.put(stateInit.getType().toString(), stateInit);
+		App.stateList.put(stateMenu.getType().toString(), stateMenu);
+		App.stateList.put(stateSetup.getType().toString(), stateSetup);
+		App.stateList.put(statePlay.getType().toString(), statePlay);
+		App.stateList.put(stateEnd.getType().toString(), stateEnd);
 		App.printStageList();
 		
 		new GameLoop() { 
 			public void handle(long l) {
 				// Main game logic
-				App.runTimeVal = ((l-startTime) / 1000000000);
+				App.runTimeVal = ((l - App.startTime) / 1000000000);
 				App.runTime.setText("Time: " + App.runTimeVal);
 				
 				if(App.getState() == GameState.STATE_INIT && App.runTimeVal > 2) {
@@ -90,9 +95,9 @@ public class App extends Application {
 	public static void setState(GameState s) throws Exception { 
 		if(s != App.gameState) {
 			try {
-				App.stateList.get(App.getState().toString()).getStage().hide();
-				App.stateList.get(s.toString()).getStage().show();
 				App.gameState = s;
+				App.mainStage.setScene(App.stateList.get(App.getState().toString()).getScene());
+				App.mainStage.show();
 			}
 			catch(Exception ex) {
 				throw new Exception("State (GameState." + s + ") does not exist.");

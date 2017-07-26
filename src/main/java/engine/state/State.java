@@ -22,6 +22,7 @@ public abstract class State {
 	/**
 	 * Variable definitions
 	 */
+	protected Scene stateScene;
 	protected Stage stateStage = new Stage();
 	protected GameState stateType = GameState.STATE_NULL;
 
@@ -43,9 +44,9 @@ public abstract class State {
 		rootContainer.setSpacing(0);
 		rootContainer.getChildren().addAll(labelContainer);
         
-		Scene scene = new Scene(rootContainer);
+		Scene stateScene = new Scene(rootContainer);
 		this.getStage().setTitle("State: Empty State");
-		this.getStage().setScene(scene);
+		this.getStage().setScene(stateScene);
 	}
 	
 	/**
@@ -54,6 +55,14 @@ public abstract class State {
 	 */
 	public Stage getStage() { 
 		return stateStage;
+	}
+
+	/**
+	 * Gets the scene for this state
+	 * @return Scene node object which can be used to find values in
+	 */
+	public Scene getScene() {
+		return stateScene;
 	}
 	
 	/**

@@ -40,7 +40,10 @@ public class MenuState extends State {
 		});
 		initButton.setOnMouseClicked((e) -> {
 			try {
-				App.setState(GameState.STATE_INIT);				 
+				App.startTime = System.nanoTime();
+				App.runTimeVal = 0;
+				
+				App.setState(GameState.STATE_INIT);
 			}
 			catch(Exception ex) {
 				System.out.println(ex.getMessage());
@@ -67,11 +70,11 @@ public class MenuState extends State {
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);
 		rootContainer.getChildren().addAll(labelContainer, buttonContainer);
-		buttonContainer.setAlignment(Pos.CENTER);
+		rootContainer.setAlignment(Pos.CENTER);
         
-		Scene scene = new Scene(rootContainer);
+		super.stateScene = new Scene(rootContainer);
 		super.getStage().setTitle("State: Main Menu");
-		super.getStage().setScene(scene);
+		super.getStage().setScene(super.stateScene);
 	}
 
 }

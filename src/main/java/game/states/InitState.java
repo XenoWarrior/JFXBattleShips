@@ -24,9 +24,10 @@ public class InitState extends State {
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);
 		rootContainer.getChildren().addAll(labelContainer);
+		rootContainer.setAlignment(Pos.CENTER);
         
-		Scene scene = new Scene(rootContainer);
+		super.stateScene = new Scene(rootContainer);
 		super.getStage().setTitle("State: Game Loading");
-		super.getStage().setScene(scene);
+		super.getStage().setScene(super.stateScene);
 	}
 }
