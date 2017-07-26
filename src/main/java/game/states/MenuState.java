@@ -1,4 +1,4 @@
-package states;
+package game.states;
 
 import engine.gui.GUIControls;
 import engine.state.State;
@@ -15,10 +15,10 @@ import javafx.scene.text.Font;
 public class MenuState extends State {
 
 	public MenuState() {
-		Button startButton = GUIControls.createButton("Start", 64, 32);
+		Button startButton = GUIControls.createButton("New Game", 64, 32);
 		Button playButton = GUIControls.createButton("Test Play", 64, 32);
 		Button initButton = GUIControls.createButton("Test Init", 64, 32);
-		Button exitButton = GUIControls.createButton("Exit", 64, 32);
+		Button exitButton = GUIControls.createButton("Exit Game", 64, 32);
 		
 		startButton.setOnMouseClicked((e) -> {
 			try {
@@ -53,9 +53,10 @@ public class MenuState extends State {
 		buttonContainer.setSpacing(25);
 		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
 		buttonContainer.setAlignment(Pos.CENTER);
-		
+
 		HBox labelContainer = new HBox();
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+		labelContainer.getChildren().addAll(GUIControls.createLabel("Main Menu", new Font("Arial", 30)));
 		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);

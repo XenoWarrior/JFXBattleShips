@@ -15,7 +15,8 @@ public abstract class State {
 
 	public State() {
 		HBox labelContainer = new HBox();
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+		labelContainer.getChildren().addAll(GUIControls.createLabel("Empty State", new Font("Arial", 30)));
 		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 25, 25));
 		labelContainer.setAlignment(Pos.CENTER);

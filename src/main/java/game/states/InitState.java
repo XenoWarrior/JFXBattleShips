@@ -1,4 +1,4 @@
-package states;
+package game.states;
 
 import engine.gui.GUIControls;
 import engine.state.State;

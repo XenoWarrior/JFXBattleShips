@@ -1,4 +1,4 @@
-package states;
+package game.states;
 
 import engine.gui.GUIControls;
 import engine.state.State;
@@ -11,9 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class SetupState extends State {
+public class EndState extends State {
 
-	public SetupState() {
+	public EndState() {
 
 		Button backToMenuButton = GUIControls.createButton("Back to Menu", 128, 32);
 		backToMenuButton.setOnMouseClicked((e) -> {
@@ -24,9 +24,10 @@ public class SetupState extends State {
 				System.out.println(ex.getMessage());
 			}
 		});
-		
+
 		HBox labelContainer = new HBox();
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+		labelContainer.getChildren().addAll(GUIControls.createLabel("Game Over", new Font("Arial", 30)));
 		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
@@ -41,9 +42,11 @@ public class SetupState extends State {
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);
 		rootContainer.getChildren().addAll(labelContainer, buttonContainer);
-        
+		
 		Scene scene = new Scene(rootContainer);
-		this.getStage().setTitle("State: Board Setup");
+		this.getStage().setTitle("State: Game Over");
 		this.getStage().setScene(scene);
+		
 	}
+	
 }

@@ -1,4 +1,4 @@
-package states;
+package game.states;
 
 import engine.gui.GUIControls;
 import engine.state.State;
@@ -11,9 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class PlayState extends State {
+public class SetupState extends State {
 
-	public PlayState() {
+	public SetupState() {
 
 		Button backToMenuButton = GUIControls.createButton("Back to Menu", 128, 32);
 		backToMenuButton.setOnMouseClicked((e) -> {
@@ -24,15 +24,26 @@ public class PlayState extends State {
 				System.out.println(ex.getMessage());
 			}
 		});
-		
+
+		Button startButton = GUIControls.createButton("Start Game", 128, 32);
+		startButton.setOnMouseClicked((e) -> {
+			try {
+				App.setState(GameState.STATE_PLAY);				 
+			}
+			catch(Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+		});
+
 		HBox labelContainer = new HBox();
-		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
+		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
+		labelContainer.getChildren().addAll(GUIControls.createLabel("Configure Board", new Font("Arial", 30)));
 		labelContainer.setSpacing(25);
 		labelContainer.setPadding(new Insets(25, 25, 0, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 
 		HBox buttonContainer = new HBox();
-		buttonContainer.getChildren().addAll(backToMenuButton);
+		buttonContainer.getChildren().addAll(backToMenuButton, startButton);
 		buttonContainer.setSpacing(25);
 		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
 		buttonContainer.setAlignment(Pos.CENTER);
@@ -41,9 +52,9 @@ public class PlayState extends State {
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);
 		rootContainer.getChildren().addAll(labelContainer, buttonContainer);
-		
+        
 		Scene scene = new Scene(rootContainer);
-		this.getStage().setTitle("State: Play Battleships");
+		this.getStage().setTitle("State: Board Setup");
 		this.getStage().setScene(scene);
-	}	
+	}
 }
