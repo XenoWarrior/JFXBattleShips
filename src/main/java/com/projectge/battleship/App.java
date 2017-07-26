@@ -37,25 +37,21 @@ public class App extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		VBox rootContainer1 = new VBox();
 		rootContainer1.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer1.setSpacing(10);
 		rootContainer1.getChildren().add(new Board(BoardType.BOARD_PLAYER_1).getColumns());
-
         Scene scene1 = new Scene(rootContainer1);
         primaryStage.setTitle("Battleships");
         primaryStage.setScene(scene1);
         primaryStage.show();
 
-
         Stage primaryStage1 = new Stage();
-        
 		VBox rootContainer2 = new VBox();
 		rootContainer2.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer2.setSpacing(10);
 		rootContainer2.getChildren().add(new Board(BoardType.BOARD_PLAYER_2).getColumns());
-        
         Scene scene2 = new Scene(rootContainer2);
         primaryStage1.setTitle("Battleships");
         primaryStage1.setScene(scene2);
