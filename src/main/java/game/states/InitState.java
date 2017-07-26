@@ -11,7 +11,9 @@ import javafx.scene.text.Font;
 
 public class InitState extends State {
 
-	public InitState() {
+	public InitState(GameState s) { 
+		super(s);
+		
 		HBox labelContainer = new HBox();
 		labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName(), new Font("Arial", 30)));
 		labelContainer.setSpacing(25);

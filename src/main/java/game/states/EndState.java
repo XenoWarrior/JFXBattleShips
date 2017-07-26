@@ -13,7 +13,8 @@ import javafx.scene.text.Font;
 
 public class EndState extends State {
 
-	public EndState() {
+	public EndState(GameState s) {
+		super(s);
 
 		Button backToMenuButton = GUIControls.createButton("Back to Menu", 128, 32);
 		

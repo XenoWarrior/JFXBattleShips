@@ -14,7 +14,9 @@ import javafx.scene.text.Font;
 
 public class MenuState extends State {
 
-	public MenuState() {
+	public MenuState(GameState s) {
+		super(s);
+		
 		Button startButton = GUIControls.createButton("New Game", 64, 32);
 		Button playButton = GUIControls.createButton("Test Play", 64, 32);
 		Button initButton = GUIControls.createButton("Test Init", 64, 32);

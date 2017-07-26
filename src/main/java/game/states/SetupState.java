@@ -13,7 +13,8 @@ import javafx.scene.text.Font;
 
 public class SetupState extends State {
 
-	public SetupState() {
+	public SetupState(GameState s) {
+		super(s);
 
 		Button backToMenuButton = GUIControls.createButton("Back to Menu", 128, 32);
 		Button startButton = GUIControls.createButton("Start Game", 128, 32);
