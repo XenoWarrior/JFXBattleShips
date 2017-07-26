@@ -68,13 +68,8 @@ public class App extends Application {
 				App.runTimeVal = ((l - App.startTime) / 1000000000);
 				App.runTime.setText("Time: " + App.runTimeVal);
 				
-				if(App.getState() == GameState.STATE_INIT && App.runTimeVal > 2) {
-					try {
-						App.setState(GameState.STATE_MENU);
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-					}
-				}
+				// Update the current scene we are on
+				App.stateList.get(App.getState().toString()).update();
 			}
 		}.start();
 	}

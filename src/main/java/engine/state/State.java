@@ -72,4 +72,11 @@ public abstract class State {
 	public GameState getType() {
 		return stateType;
 	}
+	
+	/**
+	 * Stub update method
+	 */
+	public void update() { 
+		System.out.println("[" +this.getClass().getName() + "]: update()");
+	}
 }
