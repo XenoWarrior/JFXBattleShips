@@ -95,7 +95,7 @@ public class App extends Application {
 				App.gameState = s;
 			}
 			catch(Exception ex) {
-				throw new Exception("State (" + s + ") does not exist.");
+				throw new Exception("State (GameState." + s + ") does not exist.");
 			}
 		}
 	}
@@ -105,7 +105,7 @@ public class App extends Application {
 	 */
 	public static void printStageList() {
 		for(State s: App.stateList.values()) {
-			System.out.println(s.getStage().getTitle() + " => " + s.getType() + " | " + s.getClass().getName());
+			System.out.println(s.getStage().getTitle() + "\n   => GaneState." + s.getType() + "\n   => " + s.getClass().getName() + "\n");
 		}
 	}
 	
