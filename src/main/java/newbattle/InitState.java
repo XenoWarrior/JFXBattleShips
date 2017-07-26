@@ -1,0 +1,29 @@
+package newbattle;
+
+import engine.GUIControls;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+
+public class InitState extends State {
+
+	public InitState() {
+		HBox labelContainer = new HBox();
+		labelContainer.getChildren().addAll(GUIControls.createLabel("Loading..", new Font("Arial", 30)));
+		labelContainer.setSpacing(25);
+		labelContainer.setPadding(new Insets(25, 25, 25, 25));
+		labelContainer.setAlignment(Pos.CENTER);
+		
+		VBox rootContainer = new VBox();
+		rootContainer.setPadding(new Insets(25, 25, 25, 25));
+		rootContainer.setSpacing(0);
+		rootContainer.getChildren().addAll(labelContainer);
+        
+		Scene scene = new Scene(rootContainer);
+		super.getStage().setTitle("State: Game Loading");
+		super.getStage().setScene(scene);
+	}
+}
