@@ -1,5 +1,6 @@
 package game.board;
 
+import game.App;
 import game.DataStorage;
 import game.ship.Ship;
 import javafx.scene.paint.Color;
@@ -48,13 +49,17 @@ public class Cell extends Rectangle {
 	
 	void onMouseClick() {
 		
-		if(DataStorage.gameReady() && !this.cellClicked) {
+		if(DataStorage.gameReady() && !this.cellClicked && !DataStorage.lockBoard) {
 			this.cellClicked = true;
+			
+			DataStorage.currentTurnTime = (int) App.runTimeVal;
 			
 			if(this.cellShip == null) {
 				setFill(Color.GREEN);
 				System.out.println("MISS!");
 
+				DataStorage.lockBoard = true;
+				
 				DataStorage.getNextPlayerTurn();
 			}
 			else {
@@ -70,7 +75,7 @@ public class Cell extends Rectangle {
 	}
 	
 	void onMouseEnter() {
-		if(DataStorage.gameReady() && !this.cellClicked) {
+		if(DataStorage.gameReady() && !this.cellClicked  && !DataStorage.lockBoard) {
 			setFill(Color.GREEN);
 		}
 		if(!DataStorage.gameReady() && this.cellShip == null) {

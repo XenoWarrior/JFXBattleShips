@@ -6,6 +6,7 @@ import game.App;
 import game.DataStorage;
 import game.board.Board;
 import game.board.Cell;
+import game.ship.ShipType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -41,35 +42,37 @@ public class SetupState extends State {
 		});
 		startButton.setOnMouseClicked((e) -> {
 			try {
-				if(DataStorage.getBoards().size() == 0) {
-					DataStorage.addBoard(new Board(rootContainer.getChildren().get(1)));
-					rootContainer.getChildren().remove(1);
-					rootContainer.getChildren().add(1, new Board(10).boardColumns());
-					
-					System.out.println("Added board for player " + DataStorage.getCurrentPlayerTurn());
-					
-					DataStorage.getNextPlayerTurn();
-					System.out.println("Next player is: " + DataStorage.getCurrentPlayerTurn());
-				}
-				else if(DataStorage.getBoards().size() == 1) {
-					DataStorage.addBoard(new Board(rootContainer.getChildren().get(1)));
-					rootContainer.getChildren().remove(1);
-					
-					System.out.println("Added board for player " + DataStorage.getCurrentPlayerTurn());
-				}
-				else {
-					this.boardsShown = false;
-					
-					rootContainer.getChildren().remove(1);
-					rootContainer.getChildren().add(1, new Board(10).boardColumns());
-
-					DataStorage.resetPlayer();
-					DataStorage.getNextPlayerTurn();
-
-					DataStorage.getBoards().get(1).hideShips();
-					DataStorage.getBoards().get(2).hideShips();
-					
-					App.setState(GameState.STATE_PLAY);
+				if(DataStorage.getCurrentShip() == null) {
+					if(DataStorage.getBoards().size() == 0 ) {
+						DataStorage.addBoard(new Board(rootContainer.getChildren().get(1)));
+						rootContainer.getChildren().remove(1);
+						rootContainer.getChildren().add(1, new Board(10).boardColumns());
+						
+						System.out.println("Added board for player " + DataStorage.getCurrentPlayerTurn());
+						
+						DataStorage.getNextPlayerTurn();
+						System.out.println("Next player is: " + DataStorage.getCurrentPlayerTurn());
+					}
+					else if(DataStorage.getBoards().size() == 1) {
+						DataStorage.addBoard(new Board(rootContainer.getChildren().get(1)));
+						rootContainer.getChildren().remove(1);
+						
+						System.out.println("Added board for player " + DataStorage.getCurrentPlayerTurn());
+					}
+					else {
+						this.boardsShown = false;
+						
+						rootContainer.getChildren().remove(1);
+						rootContainer.getChildren().add(1, new Board(10).boardColumns());
+	
+						DataStorage.resetPlayer();
+						DataStorage.getNextPlayerTurn();
+	
+						DataStorage.getBoards().get(1).hideShips();
+						DataStorage.getBoards().get(2).hideShips();
+						
+						App.setState(GameState.STATE_PLAY);
+					}
 				}
 			}
 			catch(Exception ex) {
@@ -123,15 +126,17 @@ public class SetupState extends State {
 			((Button)buttonContainer.getChildren().get(0)).setText("Start Game");
 		}
 		else {
+			
 			if(DataStorage.getCurrentShip() != null) {
-				placeLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + ", place your ship: " + DataStorage.getCurrentShip().getName() + ", size: 1 x " + DataStorage.getCurrentShip().getSize());				
+				placeLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + ", place your ship: " + DataStorage.getCurrentShip().getName() + ", size: 1 x " + DataStorage.getCurrentShip().getSize());
+				((Button)buttonContainer.getChildren().get(0)).setText("NOT ENOUGH SHIPS");
 			}
 			else {
 				placeLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + ", done placing ships." + DataStorage.getPlayerHealth(DataStorage.getCurrentPlayerTurn()));
+				((Button)buttonContainer.getChildren().get(0)).setText("Ready");
 			}
 			
 			((Label)labelContainer.getChildren().get(0)).setText("New Game");
-			((Button)buttonContainer.getChildren().get(0)).setText("Ready");
 		}
 		
 	}

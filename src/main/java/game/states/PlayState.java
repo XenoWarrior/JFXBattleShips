@@ -85,6 +85,8 @@ public class PlayState extends State {
 			else {
 				rootContainer.getChildren().add(1, DataStorage.getBoards().get(DataStorage.getCurrentPlayerTurn()-1).boardColumns());
 			}
+			stateLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + "'s turn!");
+			statusLabel.setText("Hit the enemy ships!");
 		}
 		
 		// if the turn changes from the previous value
@@ -92,15 +94,26 @@ public class PlayState extends State {
 			
 			System.out.println("The turn has changed!");
 			
-			this.currentTurn = DataStorage.getCurrentPlayerTurn();
-			
-			rootContainer.getChildren().remove(1);
-			
-			if(this.currentTurn == 1) {
-				rootContainer.getChildren().add(1, DataStorage.getBoards().get(DataStorage.getCurrentPlayerTurn()+1).boardColumns());
+			if(DataStorage.currentTurnTime+3 < App.runTimeVal) {
+				this.currentTurn = DataStorage.getCurrentPlayerTurn();
+				
+				rootContainer.getChildren().remove(1);
+				
+				if(this.currentTurn == 1) {
+					rootContainer.getChildren().add(1, DataStorage.getBoards().get(DataStorage.getCurrentPlayerTurn()+1).boardColumns());
+				}
+				else {
+					rootContainer.getChildren().add(1, DataStorage.getBoards().get(DataStorage.getCurrentPlayerTurn()-1).boardColumns());
+				}
+				
+				stateLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + "'s turn!");
+				statusLabel.setText("Hit the enemy ships!");
+				
+				DataStorage.lockBoard = false;
 			}
 			else {
-				rootContainer.getChildren().add(1, DataStorage.getBoards().get(DataStorage.getCurrentPlayerTurn()-1).boardColumns());
+				stateLabel.setText("Switching turn in " + String.valueOf((int)(DataStorage.currentTurnTime+4.99) - App.runTimeVal));
+				statusLabel.setText("You missed the shot!");
 			}
 		}
 		
@@ -116,12 +129,5 @@ public class PlayState extends State {
 				System.out.println(e.getMessage());
 			}
 		}
-		
-		/*if(DataStorage.lastTurnHit()) { 
-			
-		}*/
-		
-		stateLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + "'s turn!");
-		statusLabel.setText("Hit the enemy ships!");
 	}
 }

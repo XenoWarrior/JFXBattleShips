@@ -16,6 +16,9 @@ public class DataStorage {
 	private static int p1Health = 18;
 	private static int p2Health = 18;
 	
+	public static int currentTurnTime = 0;
+	public static boolean lockBoard = false;
+	
 	/**
 	 * Sets the next player turn
 	 */
