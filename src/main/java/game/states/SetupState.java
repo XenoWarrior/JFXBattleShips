@@ -85,7 +85,7 @@ public class SetupState extends State {
 		labelContainer.setAlignment(Pos.CENTER);
 
 		buttonContainer = new HBox();
-		buttonContainer.getChildren().addAll(startButton, backToMenuButton);
+		buttonContainer.getChildren().addAll(startButton);
 		buttonContainer.setSpacing(25);
 		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
 		buttonContainer.setAlignment(Pos.CENTER);

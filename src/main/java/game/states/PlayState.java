@@ -56,7 +56,7 @@ public class PlayState extends State {
 		labelContainer.setAlignment(Pos.CENTER);
 
 		buttonContainer = new HBox();
-		buttonContainer.getChildren().addAll(backToMenuButton, endGameButton);
+		buttonContainer.getChildren().addAll();
 		buttonContainer.setSpacing(25);
 		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
 		buttonContainer.setAlignment(Pos.CENTER);
