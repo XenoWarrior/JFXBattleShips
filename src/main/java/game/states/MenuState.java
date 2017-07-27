@@ -19,8 +19,6 @@ public class MenuState extends State {
 		super(s);
 		
 		Button startButton = GUIControls.createButton("New Game", 128, 32);
-		//Button playButton = GUIControls.createButton("Test Play", 128, 32);
-		//Button initButton = GUIControls.createButton("Test Init", 128, 32);
 		Button exitButton = GUIControls.createButton("Exit Game", 128, 32);
 		
 		startButton.setOnMouseClicked((e) -> {
@@ -31,25 +29,6 @@ public class MenuState extends State {
 				System.out.println(ex.getMessage());
 			}
 		});
-//		playButton.setOnMouseClicked((e) -> {
-//			try {
-//				App.setState(GameState.STATE_PLAY);				 
-//			}
-//			catch(Exception ex) {
-//				System.out.println(ex.getMessage());
-//			}
-//		});
-//		initButton.setOnMouseClicked((e) -> {
-//			try {
-//				App.startTime = System.nanoTime();
-//				App.runTimeVal = 0;
-//				
-//				App.setState(GameState.STATE_INIT);
-//			}
-//			catch(Exception ex) {
-//				System.out.println(ex.getMessage());
-//			}
-//		});
 		exitButton.setOnMouseClicked((e) -> {
 			Platform.exit();
 		});

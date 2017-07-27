@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import engine.handlers.GameLoop;
 import engine.state.State;
-import game.board.Board;
 import game.states.EndState;
 import game.states.GameState;
 import game.states.InitState;
@@ -99,6 +98,10 @@ public class App extends Application {
 		}
 	}
 
+	/**
+	 * Reloads the current scene / state which is on the view
+	 * @throws Exception, if the scene / state does not exist
+	 */
 	public static void reloadCurrentState() throws Exception {
 		
 		State newState;

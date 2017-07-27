@@ -5,8 +5,10 @@ import engine.state.State;
 import game.App;
 import game.DataStorage;
 import game.board.Board;
+import game.board.Cell;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +18,13 @@ import javafx.scene.text.Font;
 
 public class SetupState extends State {
 
-	private Board shipBoard = new Board(10);
 	private Label placeLabel = GUIControls.createLabel("Ship Placement: Player " + DataStorage.getCurrentPlayerTurn(), new Font("Arial", 16));
+	private VBox rootContainer;
+	private VBox labelContainer;
+	private HBox buttonContainer;
 	
+	private boolean boardsShown = false;
+
 	public SetupState(GameState s) {
 		super(s);
 
@@ -35,9 +41,35 @@ public class SetupState extends State {
 		});
 		startButton.setOnMouseClicked((e) -> {
 			try {
-				DataStorage.addBoard(shipBoard);
-				if(DataStorage.getBoards().size() == 1) {
+				if(DataStorage.getBoards().size() == 0) {
+					DataStorage.addBoard(new Board(rootContainer.getChildren().get(1)));
+					rootContainer.getChildren().remove(1);
+					rootContainer.getChildren().add(1, new Board(10).boardColumns());
+					
+					System.out.println("Added board for player " + DataStorage.getCurrentPlayerTurn());
+					
 					DataStorage.getNextPlayerTurn();
+					System.out.println("Next player is: " + DataStorage.getCurrentPlayerTurn());
+				}
+				else if(DataStorage.getBoards().size() == 1) {
+					DataStorage.addBoard(new Board(rootContainer.getChildren().get(1)));
+					rootContainer.getChildren().remove(1);
+					
+					System.out.println("Added board for player " + DataStorage.getCurrentPlayerTurn());
+				}
+				else {
+					this.boardsShown = false;
+					
+					rootContainer.getChildren().remove(1);
+					rootContainer.getChildren().add(1, new Board(10).boardColumns());
+
+					DataStorage.resetPlayer();
+					DataStorage.getNextPlayerTurn();
+
+					DataStorage.getBoards().get(1).hideShips();
+					DataStorage.getBoards().get(2).hideShips();
+					
+					App.setState(GameState.STATE_PLAY);
 				}
 			}
 			catch(Exception ex) {
@@ -45,29 +77,23 @@ public class SetupState extends State {
 			}
 		});
 
-		VBox labelContainer = new VBox();
+		labelContainer = new VBox();
 		labelContainer.setSpacing(0);
-		//labelContainer.getChildren().addAll(GUIControls.createLabel(this.getClass().getName()));
 		labelContainer.getChildren().addAll(GUIControls.createLabel("New Game", new Font("Arial", 30)));
 		labelContainer.getChildren().addAll(placeLabel);
 		labelContainer.setPadding(new Insets(25, 25, 25, 25));
 		labelContainer.setAlignment(Pos.CENTER);
 
-		HBox buttonContainer = new HBox();
+		buttonContainer = new HBox();
 		buttonContainer.getChildren().addAll(startButton, backToMenuButton);
 		buttonContainer.setSpacing(25);
 		buttonContainer.setPadding(new Insets(25, 25, 0, 25));
 		buttonContainer.setAlignment(Pos.CENTER);
-		
-		Board boardContainer = new Board(10);
-		boardContainer.boardColumns().setSpacing(25);
-		boardContainer.boardColumns().setPadding(new Insets(25, 25, 0, 25));
-		boardContainer.boardColumns().setAlignment(Pos.CENTER);
-		
-		VBox rootContainer = new VBox();
+				
+		rootContainer = new VBox();
+		rootContainer.getChildren().addAll(labelContainer, new Board(10).boardColumns(), buttonContainer);
 		rootContainer.setPadding(new Insets(25, 25, 25, 25));
 		rootContainer.setSpacing(0);
-		rootContainer.getChildren().addAll(labelContainer, new Board(10).boardColumns(), buttonContainer);
 		rootContainer.setAlignment(Pos.CENTER);
         
 		super.stateScene = new Scene(rootContainer);
@@ -77,10 +103,35 @@ public class SetupState extends State {
 	
 	@Override
 	public void update() { 
-		placeLabel.setText("Ship Placement: Player " + DataStorage.getCurrentPlayerTurn());
 		
-		if(DataStorage.getBoards().size() == 2) {
+		if(DataStorage.gameReady()) {
+			placeLabel.setText("Both players are ready.");
+
+			if(!this.boardsShown) {
+				HBox container = new HBox();
+				container.getChildren().addAll(DataStorage.getBoards().get(1).boardColumns(), DataStorage.getBoards().get(2).boardColumns());
+				container.setPadding(new Insets(25, 25, 25, 25));
+				container.setSpacing(25);
+				container.setAlignment(Pos.CENTER);
+				
+				//rootContainer.getChildren().add(1, container);
+				
+				this.boardsShown = true;
+			}
 			
+			((Label)labelContainer.getChildren().get(0)).setText("Game Ready");
+			((Button)buttonContainer.getChildren().get(0)).setText("Start Game");
+		}
+		else {
+			if(DataStorage.getCurrentShip() != null) {
+				placeLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + ", place your ship: " + DataStorage.getCurrentShip().getName() + ", size: 1 x " + DataStorage.getCurrentShip().getSize());				
+			}
+			else {
+				placeLabel.setText("Player " + DataStorage.getCurrentPlayerTurn() + ", done placing ships." + DataStorage.getPlayerHealth(DataStorage.getCurrentPlayerTurn()));
+			}
+			
+			((Label)labelContainer.getChildren().get(0)).setText("New Game");
+			((Button)buttonContainer.getChildren().get(0)).setText("Ready");
 		}
 		
 	}
