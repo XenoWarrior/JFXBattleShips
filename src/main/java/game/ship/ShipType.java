@@ -1,4 +1,4 @@
-package game;
+package game.ship;
 
 public enum ShipType {
 	SHIP_PATROL,
